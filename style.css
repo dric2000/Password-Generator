@@ -1,0 +1,11 @@
+#strength-bar::-webkit-slider-thumb {
+    display: none;
+}
+
+#strength-bar::-moz-range-thumb {
+    display: none;
+}
+
+#strength-bar {
+    background: linear-gradient(to right, #ef4444 0%, #f59e0b 50%, #10b981 100%);
+}

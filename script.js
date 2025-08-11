@@ -93,28 +93,100 @@ function calculateStrengthOfPassword(password) {
 
     let score = 0;
 
-    if (password.length >= 8) { score += 20 ; }
-    if (/[a-z]/.test(password)) { score += 20; }
-    if (/[A-Z]/.test(password)) { score += 20; }
-    if (/[0-9]/.test(password)) { score += 20; }
-    if (/[^a-zA-Z0-9]/.test(password)) { score += 20; }
-
-    globalStrongOfPassword.style.display = 'flex';
-    textOfPasswordStrong.innerText = String(score);
-    strongOfPassword.value = Number(score);
-
-    strongOfPassword.classList.remove('text-red-500', 'text-orange-500', 'text-green-500');
-
-    if (score >= 80) {
-        textOfPasswordStrong.classList.add('text-green-500'); // Vert pour fort
-    } else if (score >= 50) {
-        textOfPasswordStrong.classList.add('text-orange-500'); // Orange pour moyen
-    } else {
-        textOfPasswordStrong.classList.add('text-red-500'); // Rouge pour faible
+    // Longueur (0-30 points)
+    if (password.length >= 12) {
+        score += 30;
+    } else if (password.length >= 8) {
+        score += 20;
+    } else if (password.length >= 6) {
+        score += 10;
     }
+
+    // Variété des caractères (0-40 points)
+    let varietyScore = 0;
+    if (/[a-z]/.test(password)) varietyScore += 10;
+    if (/[A-Z]/.test(password)) varietyScore += 10;
+    if (/[0-9]/.test(password)) varietyScore += 10;
+    if (/[^a-zA-Z0-9]/.test(password)) varietyScore += 15; //
+
+    score += varietyScore;
+
+
+    // Bonus pour mélange de types consécutifs
+    if (/[a-z][A-Z]|[A-Z][a-z]/.test(password)) score += 5;
+    if (/[a-zA-Z][0-9]|[0-9][a-zA-Z]/.test(password)) score += 5;
+    if (/[a-zA-Z0-9][^a-zA-Z0-9]/.test(password)) score += 10;
+
+    updatePasswordStrengthDisplay(score);
 
     return score;
 }
+
+
+
+function updatePasswordStrengthDisplay(score) {
+    globalStrongOfPassword.style.display = 'flex';
+
+    // Mettre à jour le score affiché
+    textOfPasswordStrong.innerText = String(score);
+
+    // Récupérer la barre de progression (input range)
+    const strengthBar = document.getElementById('strength-bar');
+
+    // Mettre à jour la valeur de l'input
+    strengthBar.value = score;
+    strongOfPassword.value = Number(score);
+
+    // Nettoyer les classes précédentes du score
+    textOfPasswordStrong.classList.remove('text-red-500', 'text-orange-500', 'text-yellow-500', 'text-green-500');
+
+    // Définir les couleurs selon le score
+    let textClass = '';
+    let barStyle = '';
+
+    if (score >= 80) {
+        textClass = 'text-green-500';
+        barStyle = 'background: linear-gradient(to right, #10b981 0%, #10b981 100%);'; // Vert
+    } else if (score >= 65) {
+        textClass = 'text-green-500';
+        barStyle = 'background: linear-gradient(to right, #22c55e 0%, #22c55e 100%);'; // Vert clair
+    } else if (score >= 50) {
+        textClass = 'text-yellow-500';
+        barStyle = 'background: linear-gradient(to right, #eab308 0%, #eab308 100%);'; // Jaune
+    } else if (score >= 30) {
+        textClass = 'text-orange-500';
+        barStyle = 'background: linear-gradient(to right, #f59e0b 0%, #f59e0b 100%);'; // Orange
+    } else {
+        textClass = 'text-red-500';
+        barStyle = 'background: linear-gradient(to right, #ef4444 0%, #ef4444 100%);'; // Rouge
+    }
+
+    // Appliquer les styles
+    textOfPasswordStrong.classList.add(textClass);
+    strengthBar.style.cssText = barStyle + ' height: 12px; border-radius: 6px; appearance: none; cursor: default;';
+
+    // Cacher le thumb du slider
+    const style = document.createElement('style');
+    style.textContent = `
+        #strength-bar::-webkit-slider-thumb { display: none; }
+        #strength-bar::-moz-range-thumb { display: none; }
+    `;
+    if (!document.querySelector('#strength-bar-style')) {
+        style.id = 'strength-bar-style';
+        document.head.appendChild(style);
+    }
+}
+
+function createStrengthLabel() {
+    const label = document.createElement('span');
+    label.id = 'strength-label';
+    label.classList.add('ml-2', 'text-sm', 'font-medium');
+    textOfPasswordStrong.parentNode.appendChild(label); // ✅ Cette ligne était manquante !
+    return label;
+}
+
+
+
 
 function showLengthOfPassword() {
     numberCharacters.style.display = "flex";
@@ -202,18 +274,18 @@ function updateUI(password) {
 
 
     const passwordOptions = document.createElement('div');
-    passwordOptions.classList.add('flex', 'gap-2', 'justify-center', 'items-center');
+    passwordOptions.classList.add('flex', 'flex-col', 'gap-2', 'justify-center', 'items-center', 'sm:w-auto', 'sm:flex-row', 'w-full');
     itemDiv.appendChild(passwordOptions);
 
     const copyMyPassword = document.createElement('button');
     copyMyPassword.id = 'decision-to-copy-password';
-    copyMyPassword.classList.add('bg-green-500', 'rounded-md', 'text-white', 'text-sm', 'px-2', 'py-1', 'rounded-sm');
+    copyMyPassword.classList.add('bg-green-500', 'rounded-md', 'text-white', 'text-sm', 'px-2', 'py-1', 'rounded-sm', 'w-full', 'sm:w-auto', 'min-w-20');
     copyMyPassword.innerText = 'Copier';
     passwordOptions.appendChild(copyMyPassword);
 
     const deleteMyPassword = document.createElement('button');
     deleteMyPassword.id = 'decision-to-delete-password';
-    deleteMyPassword.classList.add('bg-red-500', 'rounded-md', 'text-white', 'text-sm', 'px-2', 'py-1', 'rounded-sm');
+    deleteMyPassword.classList.add('bg-red-500', 'rounded-md', 'text-white', 'text-sm', 'px-2', 'py-1', 'rounded-sm', 'w-full', 'sm:w-auto', 'min-w-20');
     deleteMyPassword.innerText = 'Supprimer';
     passwordOptions.appendChild(deleteMyPassword);
 

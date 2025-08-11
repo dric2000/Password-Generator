@@ -2,199 +2,155 @@
 <html lang="fr">
 
 <head>
-
     <title>Password Generator</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
 </head>
 
 <body>
-    <!-- Arrière plan bleu -->
-    <div class="w-full min-h-screen
-            bg-[linear-gradient(135deg,_#A78BFA_0%,_#8B5CF6_50%,_#7C3AED_100%)]">
+<!-- Arrière plan bleu -->
+<div class="w-full min-h-screen bg-[linear-gradient(135deg,_#A78BFA_0%,_#8B5CF6_50%,_#7C3AED_100%)]">
 
-        <!-- Fond blanc -->
-        <div class="w-full h-full flex flex-col items-center justify-center rounded ">
+    <!-- Container responsive -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+        <div class="w-full h-full flex flex-col items-center justify-center py-4 sm:py-6 lg:py-8">
 
-            <div class="bg-white w-130 shadow-md rounded-lg px-8 pt-6 pb-8 mb-5 mt-5 flex flex-col">
+            <!-- Card principale responsive -->
+            <div class="bg-white w-full max-w-2xl shadow-md rounded-lg px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-6 sm:pb-8 mb-5 mt-2 sm:mt-5 flex flex-col">
 
-                <div class="flex justify-center items-center w-full gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
+                <!-- Header responsive -->
+                <div class="flex flex-col sm:flex-row items-center w-full gap-2 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                         class="lucide lucide-lock-keyhole-open-icon lucide-lock-keyhole-open">
+                         class="lucide lucide-lock-keyhole-open-icon lucide-lock-keyhole-open sm:w-7 sm:h-7 lg:w-8 lg:h-8">
                         <circle cx="12" cy="16" r="1"/><rect width="18" height="12" x="3" y="10" rx="2"/>
-                        <path d="M7 10V7a5 5 0 0 1 9.33-2.5"/></svg>
-                    <h1 class="text-3xl font-bold font-poppins ">
+                        <path d="M7 10V7a5 5 0 0 1 9.33-2.5"/>
+                    </svg>
+                    <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold font-poppins text-center">
                         Générateur de mots de passe
                     </h1>
                 </div>
-                <!-- Formulaire -->
-                <div class="flex flex-col ">
 
-                    <form class="flex flex-col mt-10">
+                <!-- Formulaire responsive -->
+                <div class="flex flex-col">
+                    <form class="flex flex-col mt-4 sm:mt-6 lg:mt-10">
 
+                        <!-- Input site web responsive -->
                         <label for="site-web" class="text-sm font-bold text-gray-500">Site web :</label>
-                        <input class="bg-white border border-gray-500 rounded-md mt-2
-                               placeholder-gray-500 placeholder:text-sm pl-2 shadow-sm "
+                        <input class="bg-white border border-gray-500 rounded-md mt-2 px-3 py-2 placeholder-gray-500 placeholder:text-sm shadow-sm w-full"
                                type="text"
                                id="site-web"
-                               placeholder="ex : www.gmail.com"
-                        />
+                               placeholder="ex : www.gmail.com" />
 
+                        <!-- Slider responsive -->
                         <label class="text-sm font-bold text-gray-500 mt-4">
                             Longueur du mot de passe :
-                            <input
-                                    type="range"
-                                    min="2" max="20"
-                                    step="1"
-                                    class="w-full mt-2"
-                                    id="size"
-                            />
+                            <input type="range" min="2" max="20" step="1" class="w-full mt-2" id="size" />
                         </label>
 
+                        <p id="number-characters" class="text-sm font-bold text-gray-500 hidden"></p>
 
-                        <p id="number-characters" class="text-sm font-bold text-gray-500 hidden"> </p>
-
-                        <div class="flex grid grid-cols-3 gap-4 mt-5 text-sm font-bold text-gray-500">
-
-                            <label>
+                        <!-- Checkboxes responsive -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mt-5 text-sm font-bold text-gray-500">
+                            <label class="flex items-center gap-2">
                                 <input type="checkbox" id="uppercase" />
-                                Majuscules (A-Z)
+                                <span class="text-xs sm:text-sm">Majuscules (A-Z)</span>
                             </label>
 
-                            <label>
+                            <label class="flex items-center gap-2">
                                 <input type="checkbox" id="lowercase" />
-                                Minuscules (a-z)
+                                <span class="text-xs sm:text-sm">Minuscules (a-z)</span>
                             </label>
 
-                            <label>
+                            <label class="flex items-center gap-2">
                                 <input type="checkbox" id="digit" />
-                                Chiffres (0-9)
+                                <span class="text-xs sm:text-sm">Chiffres (0-9)</span>
                             </label>
 
-                            <label class="col-span-3">
+                            <label class="flex items-center gap-2 sm:col-span-2 lg:col-span-3">
                                 <input type="checkbox" id="symbol" />
-                                Symbols (!@#$%^&*)
+                                <span class="text-xs sm:text-sm">Symbols (!@#$%^&*)</span>
                             </label>
-
                         </div>
 
-
-                        <button class="bg-[linear-gradient(135deg,_#A78BFA_0%,_#8B5CF6_50%,_#7C3AED_100%)]
-                                w-50 h-8 rounded-md text-white text-sm font-bold mt-4"
-                                type="button"
-                                id="generate"
-                        >
+                        <!-- Bouton responsive -->
+                        <button class="bg-[linear-gradient(135deg,_#A78BFA_0%,_#8B5CF6_50%,_#7C3AED_100%)] w-60 h-10 p-2 sm:h-12 rounded-md text-white text-sm sm:text-base font-bold mt-4"
+                                type="button" id="generate">
                             Générer un mot de passe
                         </button>
 
-                        <span class="text-md font-bold text-green-600 mt-2 hidden" id="password-copied"></span>
+                        <span class="text-sm sm:text-base font-bold text-green-600 mt-2 hidden" id="password-copied"></span>
 
+                        <!-- Résultat mot de passe responsive -->
                         <div class="flex w-full bg-white border border-gray-500 rounded-md mt-3 mb-2 shadow-sm p-2 hidden" id="generate-password">
-
-                            <input class="w-full"
-                                   type="text"
-                                   id="password-result"
-                            />
-                            <button id="copy-to-clipboard" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            <input class="w-full text-sm sm:text-base" type="text" id="password-result" />
+                            <button id="copy-to-clipboard" type="button" class="ml-2 p-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="lucide lucide-files-icon lucide-files">
+                                     stroke-linejoin="round" class="lucide lucide-files-icon lucide-files sm:w-6 sm:h-6">
                                     <path d="M15 2a2 2 0 0 1 1.414.586l4 4A2 2 0 0 1 21 8v7a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/>
-                                    <path d="M15 2v4a2 2 0 0 0 2 2h4"/><path d="M5 7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 1.732-1"/></svg>
+                                    <path d="M15 2v4a2 2 0 0 0 2 2h4"/><path d="M5 7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 1.732-1"/>
+                                </svg>
                             </button>
                         </div>
 
-                        <div class="flex flex-col justify-center hidden" id="global-strong-of-password">
-                            <input
-                                    type="range" min="2" max="100" step="1"
-                                    class="w-full mt-1 font-bold"
-                                    id="strong"
-                                    disabled
-                            />
-                            <div class="flex ">
-                                <p class="text-sm font-bold text-gray-500">
-                                    Force :
-                                </p>
-                                <span class="text-sm font-bold text-gray-500" id="text-of-password-strong"></span>
-                                <p class="text-sm font-bold text-gray-500">/100</p>
+                        <!-- Barre de force responsive -->
+                        <div id="global-strong-of-password" class="mt-4 flex flex-col justify-center" style="display: none;">
+                            <input type="range" id="strength-bar" min="0" max="100" value="0" disabled class="w-full rounded-lg appearance-none bg-gray-200 cursor-default" />
+                            <div class="mt-2">
+                                <span id="text-of-password-strong" class="text-lg sm:text-xl font-bold">0</span><span class="text-sm sm:text-base">/100</span>
                             </div>
+                            <input type="hidden" id="strong" value="0">
                         </div>
 
-                        <div class="flex justify-between items-center mt-2 hidden" id="preserved-password">
-
-                            <span class="text-sm font-bold text-black" id="password-to-save"></span>
-
-                            <button
-                                    class="bg-green-400 rounded-md text-white text-sm font-bold p-2"
-                                    id="save-password"
-                                    type="button"
-                            >
+                        <!-- Bouton sauvegarde responsive -->
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0 mt-2 hidden" id="preserved-password">
+                            <span class="text-sm font-bold text-black break-all" id="password-to-save"></span>
+                            <button class="bg-green-400 rounded-md text-white text-sm font-bold px-4 py-2 w-full sm:w-auto"
+                                    id="save-password" type="button">
                                 Sauvegarder
                             </button>
                         </div>
 
                     </form>
 
+                    <!-- Statistiques responsive -->
+                    <div id="stats" class="flex flex-col mt-6 sm:mt-8 lg:mt-10 bg-gray-200 rounded-md p-4 sm:p-5">
 
-                    <!-- Statistiques -->
-
-                    <div id="stats" class="flex flex-col mt-10 bg-gray-200 rounded-md p-5">
-
-                        <h2 class="text-xl font-bold font-poppins ">
+                        <h2 class="text-lg sm:text-xl font-bold font-poppins mb-3 sm:mb-4">
                             Mots de passes sauvegardés
                         </h2>
 
-                        <div class="flex gap-3 mt-3 ">
-
-                            <div class="flex flex-col justify-center items-center bg-white shadow-md rounded w-40 h-20">
-                                <span class="text-2xl text-blue-500 font-bold" id="totalNumberOfPassword"></span>
-                                <p class="text-sm font-bold text-gray-500">Total</p>
+                        <!-- Cards statistiques responsive -->
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+                            <div class="flex flex-col justify-center items-center bg-white shadow-md rounded p-3 sm:p-4 h-16 sm:h-20">
+                                <span class="text-lg sm:text-xl lg:text-2xl text-blue-500 font-bold" id="totalNumberOfPassword"></span>
+                                <p class="text-xs sm:text-sm font-bold text-gray-500">Total</p>
                             </div>
 
-                            <div class="flex flex-col justify-center items-center bg-white shadow-md rounded w-40 h-20">
-                                <span class="text-2xl text-blue-500 font-bold" id="totalOfStrongPassword"></span>
-                                <p class="text-sm font-bold text-gray-500">Forts</p>
+                            <div class="flex flex-col justify-center items-center bg-white shadow-md rounded p-3 sm:p-4 h-16 sm:h-20">
+                                <span class="text-lg sm:text-xl lg:text-2xl text-blue-500 font-bold" id="totalOfStrongPassword"></span>
+                                <p class="text-xs sm:text-sm font-bold text-gray-500">Forts</p>
                             </div>
 
-                            <div
-                                class="flex flex-col justify-center items-center bg-white shadow-md rounded w-40 h-20 items-center">
-                                <span class="text-2xl text-blue-500 font-bold" id="moySize"></span>
-                                <p class="text-sm font-bold text-gray-500">Longueur moy.</p>
+                            <div class="flex flex-col justify-center items-center bg-white shadow-md rounded p-3 sm:p-4 h-16 sm:h-20 col-span-2 sm:col-span-1">
+                                <span class="text-lg sm:text-xl lg:text-2xl text-blue-500 font-bold" id="moySize"></span>
+                                <p class="text-xs sm:text-sm font-bold text-gray-500">Longueur moy.</p>
                             </div>
-
                         </div>
 
-
-                        <div
-                                class="flex flex-col justify-center gap-3 mt-5 mb-5"
-                                id="all-passwords"
-                        >
-
-
-
-                        </div>
-
-
-
-
+                        <!-- Liste des mots de passe -->
+                        <div class="flex flex-col justify-center gap-3 mt-5 mb-2" id="all-passwords"></div>
 
                     </div>
-
-
                 </div>
-
             </div>
-
         </div>
-
-
     </div>
+</div>
 
-    <script src="script.js"></script>
-
+<script src="script.js"></script>
 </body>
 
 </html>
